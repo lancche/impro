@@ -1,0 +1,60 @@
+
+path_current = pwd; % displays current directory
+
+[filename, pathname] = uigetfile('*.*','Choose file containing traces', '/users/lgm/bosanac/PROJEKTI/PTEFb/data/collection/');  %Open file dialog box
+
+cd(pathname);
+
+file = load(filename);
+
+cd(path_current); % returns to "home" directory
+
+tmb = file(:,1);
+d2b = file(:,2);
+d3b = file(:,3);
+d4b = file(:,4);
+d5b = file(:,5);
+d6b = file(:,6);
+d7b = file(:,7);
+d8b = file(:,8);
+d9b = file(:,9);
+d10b = file(:,10);
+
+t = tmi; %./tma;
+d2n = d2./d2b;
+d3n = d3./d3b;
+d4n = d4./d4b;
+d5n = d5./d5b;
+d6n = d6./d6b;
+d7n = d7./d7b;
+d8n = d8./d8b;
+d9n = d9./d9b;
+d10n = d10./d10b;
+
+figure(33);
+ho = axes('Fontsize',15);
+set(ho);
+
+h = axes('Color',[.9 .9 .9],...
+       'GridLineStyle','--',...
+       'ZTickLabel','-1|Z = 0 Plane|+1',...
+       'FontName','times',...
+       'FontAngle','italic',...
+       'FontSize',14,...
+       'XColor',[0 0 .7],...
+       'YColor',[0 0 .7],...
+       'ZColor',[0 0 .7]);
+
+hold on;
+plot(tm, d3n, 'o','MarkerEdgeColor', 'r',...
+                'MarkerFaceColor', grey, 'MarkerSize', 5); 
+plot(tm, d6n, 'o','MarkerEdgeColor',lila,...
+                'MarkerFaceColor',grey, 'MarkerSize', 5);
+plot(tm, d8n, 'o','MarkerEdgeColor','g',...
+                'MarkerFaceColor',grey, 'MarkerSize', 5);
+plot(tm, d10n, 'o', 'MarkerEdgeColor','b',...
+                'MarkerFaceColor',grey,'MarkerSize', 5); 
+
+axis([0 600 0 1.1]);
+
+save('/users/lgm/bosanac/PTEFb/data/collection/d.mat', 'di', 'tm', 'avinti', '');

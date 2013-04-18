@@ -1,0 +1,94 @@
+% boostrap of 10 graphs making the average to find the error bars:
+
+grey = [0.75 0.75 0.75];
+
+
+% ring specification
+
+tic;
+
+% looping for each radius:
+
+for j = 1 : length(a)
+   
+    ta5 = [aavinti(:,j)'; bvinti(:,j)'; cvinti(:,j)'; dvinti(:,j)'; evinti(:,j)'; fvinti(:,j)'; hvinti(:,j)'; gvinti(:,j)'; jvinti(:,j)'; kvinti(:,j)'];
+   
+%stats = bootstrp(100,@(x)[mean(x) std(x)],ta5');
+tan = ta5';
+
+
+% looping for each time point:
+
+for i = 1 : length(tan)
+    
+[botstr, stats] = bootstrp(100,@(x)[mean(x) std(x)],tan(i,:)); 
+
+%{stats gives 100 different combinations of 10 picked in actual indices}
+%(10x100 matrix for stats)
+% botstr gives the mean in first column and stdx in second column of these 100 combinations. (100x2matrix)
+
+%figure; hist(botstr(:,1),30);
+
+% 95% confidence interval:
+acc = sort(botstr(:,1));
+leb = length(botstr(:,1));
+per = round((2.5/100)*leb);
+lb(i,j) = acc(per+1); % lower bound
+ub(i,j) = acc(leb-per); % upper bound
+
+end
+
+disp(['Ring ' num2str(j) ' looped!']);
+        disp(' '); 
+
+end
+
+toc
+
+disp(['A za ovo je trebalo samo ' num2str(toc/60) ' minuta!']);
+        disp(' '); 
+
+% ultimate trace:
+DATA = [totm2, novotoa]; 
+DATAer= [lb, ub];
+
+name = nam;
+name1 = 'ULTIMer';
+
+figure; 
+plot(lb(:,30), 'g'); 
+hold on;
+plot(ub(:,30), 'r');
+hold on;
+plot(novotoa(:,30), 'b')
+title('Control: ring no.30')
+legend('lower bound', 'upper bound', 'average trace')
+hold off; 
+
+ube = abs(novotoa - ub);
+lbe = abs(novotoa - lb);
+
+name2 = 'ULTIMabl';
+name3 = 'ULTIMabu';
+
+DATAabl= [lbe];
+DATAabu = [ube];
+
+figure;
+errorbar(totm2,novotoa(:,30),lbe(:,30),ube(:,30), 'Color', grey)
+hold on;
+plot(totm2, novotoa(:,30), 'b');
+hold off;
+
+cd(dirn);
+
+cd('averages');
+
+save(name, 'DATA', '-ascii');
+save(name1, 'DATAer', '-ascii');
+save(name2, 'DATAabl', '-ascii');
+save(name3, 'DATAabu', '-ascii');
+
+cd(path_current);
+
+final_plot;

@@ -1,0 +1,67 @@
+
+cd(dirn);
+cd('averages');
+
+load(nam);
+
+cd(path_current);
+
+whos('-ascii', nam);
+
+
+filevariables = {'totm2', 'novotoa', 'novotoa5', 'novoto1', 'novoto2', 'novoto3', 'novoto4', 'novoto5', 'novoto6', 'novoto7', 'novoto8'};
+
+tm = totm2;
+d2 = novotoa(:);
+d3 = novotoa5;
+d4 = novoto1;
+d5 = novoto2;
+d6 = novoto3;
+d7 = novoto4;
+d8 = novoto5;
+d9 = novoto6;
+d10 = novoto7;
+
+grey = [0.75 0.75 0.75];
+
+figure(9951);
+axis([0 600 0 1.1])
+hold on;
+plot(tm, d3, 'o','MarkerEdgeColor','r',...
+                'MarkerFaceColor','r', 'MarkerSize', 5); 
+plot(tm, d6, 'o','MarkerEdgeColor','b',...
+                'MarkerFaceColor','b', 'MarkerSize', 5);
+plot(tm, d8, 'o','MarkerEdgeColor','g',...
+                'MarkerFaceColor','g', 'MarkerSize', 5);
+plot(tm, d10, 'o', 'MarkerEdgeColor','m',...
+                'MarkerFaceColor','y','MarkerSize', 5); 
+
+             
+legend('0.8\mum', '4.8\mum', '8.0\mum', '1.12\mum');%, '11.2\mum');
+
+title(picnam,'fontsize',30,'fontweight','b' )
+xlabel('Time [s]','fontsize',30,'fontweight','b');
+ylabel('Normalized Intensity', 'fontsize',30,'fontweight','b')
+hold off;
+
+cd(dirn);
+cd('averages');
+
+saveas(gcf, nam1, 'jpg');
+
+figure; 
+mesh(totm, todi, toavinti)
+xlabel('time [s]')
+ylabel('distance [nm]')
+zlabel('Normalized Intensity')
+title(nam1)
+saveas(gcf, '3d', 'fig');
+
+cd(path_current);
+
+figure(101);
+hsbload  = uicontrol('Style','Pushbutton', ...
+    'Position',[left1+0.25*wid1 bot9 0.75*(wid1+wid1) 2*height], ...
+    'String','Superimpose',...
+    'BackgroundColor','w',...
+    'Callback','superposition');

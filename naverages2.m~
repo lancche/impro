@@ -1,0 +1,76 @@
+cd(dirn);
+
+ale = zeros(1,2);
+ti = zeros(1,2);
+
+load data22;
+hdi = di;
+htm = tm;
+havinti = avinti;
+ale(1) = size(hdi,2);
+ti(1) = size(hdi,1);
+
+load data;
+gdi = di;
+gtm = tm;
+gavinti = avinti;
+ale(2) = size(gdi,2);
+ti(2) = size(gdi,1);
+
+a = min(ale);
+b = min(ti);
+b = 598;
+
+gdi = gdi(1:b, 1:a);
+gtm = gtm(1:b, 1:a);
+gvinti = gavinti(1:b,1:a);
+
+hdi = hdi(1:b, 1:a);
+htm = htm(1:b, 1:a);
+hvinti = havinti(1:b,1:a);
+
+havintia5 = hvinti(:,5);
+havinti3 = hvinti(:,30);
+havinti5 = hvinti(:,50);
+havinti7 = hvinti(:,70);
+
+gavintia5 = gvinti(:,5);
+gavinti3 = gvinti(:,30);
+gavinti5 = gvinti(:,50);
+gavinti7 = gvinti(:,70);
+
+% idi = idi(1:b, 1:a);
+% itm = itm(1:b, 1:a);
+% ivinti = iavinti(1:b,1:a);
+
+% jdi = jdi(1:b, 1:a);
+% jtm = jtm(1:b, 1:a);
+% jvinti = javinti(1:b,1:a);
+
+% mdi = gdi + hdi + idi + jdi;
+% mtm = gtm + htm + itm + jtm;
+% mvinti = gvinti + hvinti + ivinti + jvinti;
+% 
+% mavdi = mdi/4;
+% mavtm = mtm/4;
+% mavinti = mvinti/4;
+
+mdi = gdi + hdi;
+mtm = gtm + htm;
+mvinti = gvinti + hvinti;
+
+mavdi = mdi/2;
+mavtm = mtm/2;
+mavinti = mvinti/2;
+
+M = [mavdi, mavtm, mavinti];
+
+cd('averages');
+
+save('m.mat', 'mavdi', 'mavtm', 'mavinti' )
+
+cd(path_current); % return home before calling others
+
+
+
+%clear all;

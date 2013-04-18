@@ -1,0 +1,86 @@
+
+cd(dirn);
+
+ale = zeros(1,2);
+ti = zeros(1,2);
+
+load data9;
+jdi = di;
+jtm = tm;
+javinti = avinti;
+ale(1) = size(jdi,2);
+ti(1) = size(jdi,1);
+
+load data10;
+kdi = di;
+ktm = tm;
+kavinti = avinti;
+ale(2) = size(kdi,2);
+ti(2) = size(kdi,1);
+
+
+a = min(ale);
+b = min(ti);
+b = 598;
+jdi = jdi(1:b, 1:a);
+jtm = jtm(1:b, 1:a);
+jvinti = javinti(1:b,1:a);
+
+kdi = kdi(1:b, 1:a);
+ktm = ktm(1:b, 1:a);
+kvinti = kavinti(1:b,1:a);
+
+
+javintia5 = jvinti(:,5);
+javinti3 = jvinti(:,30);
+javinti5 = jvinti(:,50);
+javinti7 = jvinti(:,70);
+
+kavintia5 = kvinti(:,5);
+kavinti3 = kvinti(:,30);
+kavinti5 = kvinti(:,50);
+kavinti7 = kvinti(:,70);
+
+mdi = jdi + kdi;
+mtm = jtm + ktm;
+mvinti = jvinti + kvinti;
+
+mavdi = mdi/2;
+mavtm = mtm/2;
+mavinti = mvinti/2;
+
+M = [mavdi, mavtm, mavinti];
+
+cd('averages');
+
+save('m.mat', 'mavdi', 'mavtm', 'mavinti' )
+
+tao = [1:length(aavinti(:,1))];
+
+figure(111);
+plot(tao, aavinti(:,30), 'r');
+hold on;
+plot(tao, bvinti(:,30), 'y');
+hold on; 
+plot(tao,cvinti(:,30), 'g');
+hold on; 
+plot*(
+
+davinti3 = dvinti(:,30);
+
+eavinti3 = evinti(:,30);
+
+favinti3 = fvinti(:,30);
+
+havinti3 = hvinti(:,30);
+
+gavinti3 = gvinti(:,30);
+
+javinti3 = jvinti(:,30);
+
+kavinti3 = kvinti(:,30);
+
+
+
+cd(path_current); % return home before calling others
+

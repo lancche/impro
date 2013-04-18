@@ -1,0 +1,52 @@
+
+% fixing contrast to make visible:
+pref = imadjust(pre, stretchlim(pre));
+posf = imadjust(post, stretchlim(post));
+dfia = imabsdiff(pre, post); % absolute difference between pre and post. 
+dfias = imadjust(dfia, stretchlim(dfia)); % fixing contrast
+
+figure(1);
+set(gcf, 'Name', 'Select the Area of Interest');
+ set(gcf,'Position',[lef bot wid hei],'BackingStore','off','MenuBar','figure',...
+     'NumberTitle','off','Name','Selections of ROI','Color', barbika);
+ set(gcf,'DefaultUicontrolUnits','normalized','DefaultUicontrolFontUnits','normalized',...
+     'DefaultUicontrolFontSize',0.45,'DefaultUicontrolFontWeight','bold')
+
+% showing for selection for bleach corr:--------------------------
+hold on; 
+imshow(dfias);
+title('pick a trivial area within cell')
+bie = roipoly; % cijela okolina lazera binary
+B = immultiply(pre, bie); % whole cell before laser
+Bp = immultiply(post, bie); % whole cell before laser
+Ib = find(B); % nadji cifre za intenzitet prije lazera
+Ibp = find(Bp);
+= B(Ibp)
+
+
+% showing for selection for laser spot:---------------------------
+figure(1); 
+imshow(dfias);
+title('pick the laser spot and outskirts')
+cie = roipoly; % cijela okolina lazera binary
+C = immultiply(pre, cie); % whole cell before laser
+Cp = immultiply(post,cie); % whole cell after laser
+[y, x, Ic] = find(C); % nadji cifre za intenzitet prije lazera
+[yp, xp, Icp] = find(Cp); % poslje lazera
+% showing for selection of background:---------------------------
+figure(1); 
+imshow(dfias);
+title('pick the background for substraction')
+bie = roipoly; % cijela okolina lazera binary
+Cpb = immultiply(post,bie); % whole cell after laser
+Cb = immultiply(pre,bie);
+Icpb = find(Cpb); % poslje lazera
+Icb = find(Cb);
+bakpre = Cb(Icb);
+bakpost = Cpb(Icpb);
+bakprem = mean(Icb);
+bakpostm = mean(Icpb);
+
+
+looj;
+

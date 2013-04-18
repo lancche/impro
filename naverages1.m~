@@ -1,0 +1,79 @@
+cd(dirn);
+
+ale = zeros(1,3);
+ti = zeros(1,3);
+
+load data;
+ddi = di;
+dtm = tm;
+davinti = avinti;
+ale(1) = size(ddi,2);
+ti(1) = size(ddi,1);
+
+load data5;
+edi = di;
+etm = tm;
+eavinti = avinti;
+ale(2) = size(edi,2);
+ti(2) = size(edi,1);
+
+load data6;
+fdi = di;
+ftm = tm;
+favinti = avinti;
+ale(3) = size(fdi,2);
+ti(3) = size(fdi,1);
+
+
+
+%..................................................
+
+% fixing matrix dimensions:
+a = min(ale);
+b = min(ti);
+b = 598;
+
+ddi = ddi(1:b, 1:a);
+dtm = dtm(1:b, 1:a);
+dvinti = davinti(1:b,1:a);
+
+edi = edi(1:b, 1:a);
+etm = etm(1:b, 1:a);
+evinti = eavinti(1:b,1:a);
+
+fdi = fdi(1:b, 1:a);
+ftm = ftm(1:b, 1:a);
+fvinti = favinti(1:b,1:a);
+
+davintia5 = dvinti(:,5);
+davinti3 = dvinti(:,30);
+davinti5  = dvinti(:,50);
+davinti7 = dvinti(:,70);
+
+eavintia5 = evinti(:,5);
+eavinti3 = evinti(:,30);
+eavinti5 = evinti(:,50);
+eavinti7 = evinti(:,70);
+
+favintia5 = fvinti(:,5);
+favinti3 = fvinti(:,30);
+favinti5 = fvinti(:,50);
+favinti7 = fvinti(:,70);
+
+ldi = ddi+ edi + fdi;
+ltm = dtm + etm + ftm;
+lvinti = dvinti + evinti + fvinti;
+
+lavdi = ldi/3;
+lavtm = ltm/3;
+lavinti = lvinti/3;
+
+L = [lavdi, lavtm, lavinti];
+
+cd('averages');
+
+save('l.mat', 'lavdi', 'lavtm', 'lavinti');
+
+cd(path_current); % return home before calling others
+
+
